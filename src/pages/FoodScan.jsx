@@ -6,6 +6,7 @@ import DropLoader from '../components/loaders/DropLoader'
 import ScanError from './ScanError'
 
 
+
 const FoodScan = ({scan, setScan}) => {
 
     const [foodImage,setFoodImage] = useState('')
