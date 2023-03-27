@@ -3,9 +3,14 @@ import Chart from 'react-apexcharts'
 import demoFoodImage from "../assets/demo-food-img.png"
 import { HiOutlineChevronDown, HiOutlineChevronUp } from "react-icons/hi";
 
+// sub components
+import FoodDataSelected from './FoodDataSelected';
+import NoneSelected from './NoneSelected';
+
 const FoodDataPlot = ({foodApiData,foodImage, setScan}) => {
 
     const [showMore, setShowMore] = useState(false)
+    const [onOptionsSelect, setOnOptionsSelect] = useState("")
     const [showTrueFoodData, setShowTrueFoodData] = useState("")
 
     const fatPercentage = useRef(0)
@@ -22,7 +27,7 @@ const FoodDataPlot = ({foodApiData,foodImage, setScan}) => {
 
   return (
     foodApiData && <div className='bg-white mt-2 rounded-md p-4 flex flex-col'>
-        <div className='flex mb-2 gap-3 flex-wrap pb-4 border-b-2 border-b-gray-200'>
+        {onOptionsSelect === "" && <div className='flex mb-2 gap-3 flex-wrap pb-4 border-b-2 border-b-gray-200'>
                 <div className='flex items-center p-1 flex-grow shadow-md border-black bg-[#1a1313] border-2 rounded-md w-full'>
                     <img src={foodImage === "" ? demoFoodImage:foodImage} alt="Food Image" className="rounded-md shadow-md w-[100px] h-[100px] object-fill"/>
                     <div className='flex flex-col ml-4'>
@@ -92,9 +97,9 @@ const FoodDataPlot = ({foodApiData,foodImage, setScan}) => {
                     />
                     <div className='text-[#536976] ml-1 font-bold'>{foodApiData.Total_Fat_g}</div>
                 </div>
-        </div>
+        </div>}
         
-        <div className='pb-4 w-full'>
+        {onOptionsSelect === "" && <div className='pb-4 w-full'>
             <div className='w-full flex justify-center items-center font-medium' onClick={() => setShowMore(prev => !prev)}>
                 <div className='cursor-pointer'>{showMore ? "Show Less" : "Show More"}</div> 
                 <div className='ml-1'>{showMore ? <HiOutlineChevronDown/> : <HiOutlineChevronUp/>}</div>
@@ -174,9 +179,9 @@ const FoodDataPlot = ({foodApiData,foodImage, setScan}) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div>}
 
-        <div className='w-full mt-4 rounded-md shadow-md p-4 border border-slate-200'>
+        {onOptionsSelect === "" && <div className='w-full mt-4 rounded-md shadow-md p-4 border border-slate-200'>
             <div className='text-2xl mb-3 font-medium text-ellipsis'>
                 Did our prediction matched the image you clicked ?
             </div>
@@ -204,15 +209,28 @@ const FoodDataPlot = ({foodApiData,foodImage, setScan}) => {
                     />
                 </div>
             </div>
-        </div>
+        </div>}
+
+
+        {showTrueFoodData === "Yes" && onOptionsSelect === "" ? <div className='w-full mt-4 rounded-md shadow-md p-4 border border-slate-200'>
+            <div className='text-2xl mb-5 font-medium'>
+                Awesome! We're glad we could help you find the nutritional values of your meal. Enjoy your meal! 
+            </div>
+            <button
+                onClick={()=>setScan(false)}
+                className='w-full rounded-md text-white text-lg font-medium bg-[#00745B] text-center py-1'
+            >
+                Scan Again
+            </button>
+        </div> : null}
 
         {showTrueFoodData === "No" ? <div className='w-full mt-4 rounded-md shadow-md p-4 border border-slate-200'>   
-
             <div className='text-2xl mb-4 font-medium text-ellipsis'>
                Select food that perfectly matches with the food image you clicked
             </div>            
             <select 
                 className={`w-full rounded-[2px] px-1 h-[35px] text-[#ACACAC] text-sm bg-[#ffffff] cursor-pointer focus:outline-none border`}
+                onChange={(e)=>{setOnOptionsSelect(e.target.value)}}
             >
                 <option value="" className='text-[#333333]'>-- Select food --</option>
                 {
@@ -231,18 +249,10 @@ const FoodDataPlot = ({foodApiData,foodImage, setScan}) => {
                 <option value="None" className='text-[#333333]'>None</option>
             </select>
         </div> : null}  
+        
+        {onOptionsSelect !== "" && onOptionsSelect !== "None" && <FoodDataSelected onOptionsSelect={onOptionsSelect}/>}
+        {onOptionsSelect !== "" && onOptionsSelect === "None" && <NoneSelected/>}
 
-        {showTrueFoodData === "Yes" ? <div className='w-full mt-4 rounded-md shadow-md p-4 border border-slate-200'>
-            <div className='text-2xl mb-5 font-medium'>
-                Awesome! We're glad we could help you find the nutritional values of your meal. Enjoy your meal! 
-            </div>
-            <button
-                onClick={()=>setScan(false)}
-                className='w-full rounded-md text-white text-lg font-medium bg-[#00745B] text-center py-1'
-            >
-                Scan Again
-            </button>
-        </div> : null}
     </div>
   )
 }
