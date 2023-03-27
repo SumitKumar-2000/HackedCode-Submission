@@ -33,9 +33,9 @@ const FoodDataSelected = ({onOptionsSelect}) => {
             <div className='flex mb-2 gap-3 flex-wrap pb-4 border-b-2 border-b-gray-200'>
                 <div className='flex items-center p-1 flex-grow shadow-md border-black bg-[#1a1313] border-2 rounded-md w-full'>
                     <div className='flex justify-evenly mx-4 w-full'>
-                        <div><span className='text-slate-200'>Food - </span> <span className='text-white' >{apiResponse.item_name}</span></div>  
+                        <div><span className='text-slate-200 text-xs'>Food - </span> <span className='text-white text-xs font-semibold' >{apiResponse.item_name}</span></div>  
                         <div className='text-white'>|</div>
-                        <div><span className='text-slate-200'>Servings - </span> <span className='text-white' >{apiResponse["Serving_Size "]}</span></div>    
+                        <div><span className='text-slate-200 text-xs'>Servings - </span> <span className='text-white text-xs font-semibold' >{apiResponse["Serving_Size "]}</span></div>    
                     </div>
                 </div>
                 <div className='flex items-center w-full h-full justify-center p-1 shadow-md bg-zinc-100 rounded-md' >
