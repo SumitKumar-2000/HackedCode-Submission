@@ -224,14 +224,15 @@ const FoodDataPlot = ({foodApiData,foodImage, setScan}) => {
             </button>
         </div> : null}
 
-        {showTrueFoodData === "No" ? <div className='w-full mt-4 rounded-md shadow-md p-4 border border-slate-200'>   
+        {showTrueFoodData === "No" && onOptionsSelect === "" ? <div className='w-full mt-4 rounded-md shadow-md p-4 border border-slate-200'>   
             <div className='text-2xl mb-4 font-medium text-ellipsis'>
                Select food that perfectly matches with the food image you clicked
             </div>            
-            <select 
+            <select
+                id="foodItemSelect" 
                 className={`w-full rounded-[2px] px-1 h-[35px] text-[#ACACAC] text-sm bg-[#ffffff] cursor-pointer focus:outline-none border`}
                 onChange={(e)=>{setOnOptionsSelect(e.target.value)}}
-            >
+            >   
                 <option value="" className='text-[#333333]'>-- Select food --</option>
                 {
                     foodApiData.name.map((foodItem,idx) => {

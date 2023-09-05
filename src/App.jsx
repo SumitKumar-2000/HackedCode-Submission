@@ -8,7 +8,7 @@ function App() {
   const [scan, setScan] = useState(false)
 
   return (
-    <div className="h-[100vh]">
+    <div className="h-[100vh] border border-gray-200">
       <div className="h-[96%]">
         <Navbar scan={scan} setScan={setScan}/>
         <FoodScan scan={scan} setScan={setScan} />

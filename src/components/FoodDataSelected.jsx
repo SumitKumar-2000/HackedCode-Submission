@@ -28,8 +28,11 @@ const FoodDataSelected = ({onOptionsSelect}) => {
         carbsPercentage.current = Math.round((apiResponse.Total_Carbohydrate_g / calorieSum) * 100)
     }
 
+    console.log("on options select: ",onOptionsSelect);
+
     return (
-       apiResponse && <div className='mt-4'>
+       apiResponse && <div>
+            <h1 className='text-3xl font-bold mb-3'>{onOptionsSelect}</h1>
             <div className='flex mb-2 gap-3 flex-wrap pb-4 border-b-2 border-b-gray-200'>
                 <div className='flex items-center p-1 flex-grow shadow-md border-black bg-[#1a1313] border-2 rounded-md w-full'>
                     <div className='flex justify-evenly mx-4 w-full'>
